@@ -1,0 +1,1 @@
+/Applications/MAMP/Library/bin/mysqldump -u root -proot ipmobman > /Users/azabeo/NetBeansProjects/loadGtsf/db_bkp/ipmobman20121116.1136.sql
