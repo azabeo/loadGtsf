@@ -190,7 +190,7 @@ public class Db {
                 "FROM ipmobman.trips t " + 
                 "INNER JOIN ipmobman.shapes s ON t.shape_id = s.shape_id " +
                 "INNER JOIN ipmobman.routes r ON t.route_id = r.route_id " +
-                "ORDER BY t.trip_id, s.shape_pt_sequence;
+                "ORDER BY t.trip_id, s.shape_pt_sequence;";
     }
 
     public static String readLine(String fileName) {
