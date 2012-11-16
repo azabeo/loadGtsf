@@ -29,22 +29,26 @@ public class Loader {
     
     public static void main(String[] args) {
         
-        Loader.importa("http://localhost/gtsf/torino_it.zip","id1",",", "\"", "\\r\\n");
-        
+        //Loader.importa("http://localhost/gtsf/torino_it.zip","id1",",", "\"", "\\r\\n");
+        //Loader.importa("http://localhost/gtsf/people-mover_20110803_0448.zip","id1",",", "\"", "\\r\\n");
+        Loader.importa("http://localhost/gtsf/portland.zip","id1",",", "\"", "\\r\\n");
     }
     
     public static void importa(String urlString, String agency_global_id, String field_term, String encloser, String line_term){
         String destDir = DIR + TMP + "/";
         String fileName = FNAME + agency_global_id + FEXT;
         
-        /*
+        long startTime = System.currentTimeMillis();
+        
         Utility.rmDir(new File(destDir));
         Utility.mkDir(destDir);
         download(urlString,fileName,destDir);
         Utility.unZip(destDir + fileName, destDir);
         Utility.del(destDir + fileName);
-        * */
+        
         importCsvsFromDir(destDir, agency_global_id, field_term, encloser, line_term);
+        
+        Utility.log("\nCOMPLETED IN " + (new Long(System.currentTimeMillis() - startTime).toString()) + " millseconds).\n");
     }
     
     //download zip file
@@ -107,7 +111,7 @@ public class Loader {
 
         if (list != null) {
             for (int i = 0; i < list.length; i++) {
-                Utility.log("Importing " + list[i]);
+                Utility.log("\nImporting " + list[i]);
                 Db.importCsv(path+list[i],agency_global_id, field_term, encloser, line_term);
             }
         }

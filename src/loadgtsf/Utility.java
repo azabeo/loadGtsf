@@ -30,6 +30,8 @@ public class Utility {
     public static void unZip(String zipFile, String outputFolder) {
 
         byte[] buffer = new byte[1024];
+        
+        long startTime = System.currentTimeMillis();
 
         try {
 
@@ -38,6 +40,8 @@ public class Utility {
             if (!folder.exists()) {
                 folder.mkdir();
             }
+            
+            
 
             //get the zip file content
             ZipInputStream zis =
@@ -70,11 +74,11 @@ public class Utility {
             zis.closeEntry();
             zis.close();
 
-            Utility.log("Done");
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        
+        Utility.log("Done. " + (new Long(System.currentTimeMillis() - startTime).toString()) + " millseconds).\n");
     }
 
     /**

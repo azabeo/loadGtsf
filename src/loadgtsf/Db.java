@@ -122,6 +122,7 @@ public class Db {
         String noCol = "";
         int varNum = 0;
         Statement st = null;
+        long startTime;
 
         while (redo) {
 
@@ -138,17 +139,20 @@ public class Db {
             try {
                 con.setAutoCommit(false);
 
+                startTime = System.currentTimeMillis();
+                
                 st = con.createStatement();
                 int res = st.executeUpdate("DELETE FROM " + tableName + " WHERE agency_global_id = '" + agency_global_id + "';");
                 Utility.log("  Deleted " + res + " lines from " + tableName);
                 res = st.executeUpdate(query);
                 Utility.log("  Inserted " + res + " lines from " + tableName);
-
+                Utility.log("  " + (new Long(System.currentTimeMillis() - startTime).toString()) + " millseconds");
+                
                 con.commit();
                 redo = false;
             } catch (SQLException ex) {
                 String msg = ex.getMessage();
-                Utility.log(msg);
+                Utility.log("  --" + msg);
 
                 if (msg.startsWith("Unknown column")) {
                     Scanner s = new Scanner(msg);
@@ -162,7 +166,7 @@ public class Db {
 
                 if (con != null) {
                     try {
-                        Utility.log("Transaction is being rolled back");
+                        Utility.log("  -- Transaction is being rolled back");
                         con.rollback();
                     } catch (SQLException excep) {
                         Utility.log(excep.getMessage());
