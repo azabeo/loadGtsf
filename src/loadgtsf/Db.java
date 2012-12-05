@@ -230,7 +230,7 @@ public class Db {
                     String q1 = insert + old_id + "', '" + path + "', " + nump + ", " + totd + ");";
                     res = stmt.executeUpdate(q1);
                     
-                    Utility.log("- paths: " + old_id + " " + nump);
+                    //Utility.log("- paths: " + old_id + " " + nump);
 
                     path = "";
                     nump = 0;
